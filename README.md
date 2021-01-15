@@ -71,7 +71,7 @@ Vue.use(vueFilePreview,{
 <template>
     <div id="app">
         <h1>列表展示</h1>
-        <xd-file-list-preview :list="list" @remove="handleRemoveClick"></xd-file-list-preview>
+        <xd-file-list-preview :show-close="showClose" :list="list" @remove="handleRemoveClick"></xd-file-list-preview>
         <hr>
         <h1>文件预览模式</h1>
         <a @click="handleClick" style="color: #4285f4">9958ff80d202f91b347b14b5c56f14e811</a>
@@ -84,6 +84,7 @@ Vue.use(vueFilePreview,{
     components: {},
     data() {
       return {
+        showClose: true, //是否开启删除功能
         list: [
           {url: 'https://testimg.tiangongy.com/100601/9958ff80d202f91b347b14b5c56f14e811'},
           {url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf'},
