@@ -106,6 +106,7 @@
       handleRemoveClick(item, index) {
         this.$emit('remove', item, () => {
           this.dataList.splice(index, 1);
+          this.$emit('update:list', this.dataList);
         });
       }
     }

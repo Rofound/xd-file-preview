@@ -1,6 +1,6 @@
 {
   "name": "gxd-file-preview",
-  "version": "1.1.3",
+  "version": "1.1.6",
   "private": false,
   "description": "vue 文件在线预览展示功能，支持文件（PDF，PNG，JPEG，JPG，GIF，DOC，DOCX，PPT，PPTX，XLS，XLSX）",
   "scripts": {
@@ -41,6 +41,8 @@
   "keywords": [
     "gxd",
     "gxd-file-preview",
+    "vue-pdf",
+    "vue pdf",
     "pdf",
     "pdf-vue",
     "pdf-vue-preview",
@@ -51,12 +53,24 @@
     "file",
     "file-preview",
     "file-vue-preview",
-    "doc docx",
-    "ppt pptx",
-    "xls xlsx",
-    "doc,docx在线预览",
-    "ppt,pptx在线预览",
-    "xls,xlsx在线预览"
+    "docx",
+    "doc",
+    "vue-docx",
+    "vue-doc",
+    "ppt",
+    "pptx",
+    "vue-ppt",
+    "vue-pptx",
+    "xls",
+    "xlsx",
+    "vue-xls",
+    "vue-xlsx",
+    "doc在线预览",
+    "docx在线预览",
+    "ppt在线预览",
+    "pptx在线预览",
+    "xls在线预览",
+    "xlsx在线预览"
   ],
   "eslintConfig": {
     "root": true,

@@ -2,6 +2,7 @@
 
 import {preview} from "./components/preview";
 import helper from "./components/preview/helper";
+import XdFileListPreview from "@/components/XdFileListPreview";
 
 // 定义 install 方法
 const install = function (Vue, options) {
@@ -15,6 +16,7 @@ const install = function (Vue, options) {
   Vue.prototype.$fileHelper = helper;
   console.log('Vue.use()=> options', options);
 
+  Vue.component(XdFileListPreview.name, XdFileListPreview)
 };
 
 if (typeof window !== 'undefined' && window['Vue']) {
@@ -22,5 +24,6 @@ if (typeof window !== 'undefined' && window['Vue']) {
 }
 
 export default {
-  install
+  install,
+  XdFileListPreview
 }
