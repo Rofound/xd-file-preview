@@ -42,9 +42,12 @@ let __File_Save = {};
  */
 export function preview(options={}, $vue) {
 
+  console.log('preview',options);
+
   //已经加载过的文件
   if(options['response'] && helper.checkVarType(options['response']) === 'blob') {
     check(options, $vue);
+    return;
   }
 
   let keyMd5 = helper.md5Fn(`${options.url}${options.fid}`);

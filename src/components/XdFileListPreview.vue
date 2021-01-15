@@ -9,7 +9,7 @@
         <div class="xd-file-list__item-text-title" :title="getName(item)">{{getFileName(item)}}</div>
         <div class="xd-file-list__item-text-link" @click="handleClick(item)" :style="`color: ${linkColor}`">点击查看</div>
       </div>
-      <i class="fileIconfont iconyduicuowushixin" @click.stop="handleRemoveClick(item,index)"></i>
+      <i class="fileIconfont iconyduicuowushixin" v-if="showClose" @click.stop="handleRemoveClick(item,index)"></i>
     </div>
   </div>
 </template>
@@ -26,6 +26,10 @@
         default() {
           return []
         }
+      },
+      showClose: {
+        type: Boolean,
+        default: false,
       },
       linkColor: {
         type: String,
@@ -55,27 +59,25 @@
           this.dataList = val;
 
           //未加载过
-          if (!this.loaded) {
-            let temp = [];
-            this.dataList.map((item, index) => {
-              helper.getFileBase64(item.url, item.name ? item.name : '')
-                .then(res => {
-                  res['status'] = true;
-                  temp.push(res);
-                })
-                .catch(res => {
-                  temp.push({
-                    src: iconData.loadicon,
-                    status: false,
-                    url: item['url'],
-                    source: item['url'],
-                  });
+          let temp = [];
+          this.dataList.map((item, index) => {
+            helper.getFileBase64(item.url, item.name ? item.name : '')
+              .then(res => {
+                res['status'] = true;
+                temp.push(Object.assign({}, item, res));
+              })
+              .catch(res => {
+                temp.push({
+                  src: iconData.loadicon,
+                  status: false,
+                  url: item['url'],
+                  source: item['url'],
                 });
-            });
-            this.dataList = temp;
-            this.loaded = true;
-          }
-
+              });
+          });
+          this.dataList = temp;
+          this.$emit('change', this.dataList,'add');
+          this.loaded = true;
         }
       },
 
@@ -106,7 +108,7 @@
       handleRemoveClick(item, index) {
         this.$emit('remove', item, () => {
           this.dataList.splice(index, 1);
-          this.$emit('update:list', this.dataList);
+          this.$emit('change', this.dataList,'remove');
         });
       }
     }
@@ -123,6 +125,7 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      flex-wrap: wrap;
     }
 
 

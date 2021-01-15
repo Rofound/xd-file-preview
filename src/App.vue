@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>列表展示</h1>
-    <xd-file-list-preview :list.sync="list" @remove="handleRemoveClick"></xd-file-list-preview>
+    <xd-file-list-preview :list="list" @remove="handleRemoveClick"></xd-file-list-preview>
     <hr>
     <h1>文件预览模式</h1>
     <a @click="handleClick" style="color: #4285f4">9958ff80d202f91b347b14b5c56f14e811</a>
@@ -17,7 +17,14 @@
     data() {
       return {
         list: [
-          {url: 'https://testimg.tiangongy.com/100601/9958ff80d202f91b347b14b5c56f14e811'},
+          {
+            fileName: "快递模版-2.jpg",
+            filePath: {"name": "快递模版-2.jpg", "hashKey": "100601/b754ac77877f87fe56f870b27cc1c164"},
+            hashKey: "100601/b754ac77877f87fe56f870b27cc1c164",
+            name: "快递模版-2.jpg",
+            url: "https://testimg.tiangongy.com/100601/b754ac77877f87fe56f870b27cc1c164"
+          },
+
           {url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf'},
           {url: 'https://testimg.tiangongy.com/100601/3b85b4f1c3accdb4bb9f7e42e1f9070e', name: 'aaaa'},
           {
@@ -41,7 +48,7 @@
         setTimeout(() => {
           console.log('handleRemoveClick', item);
           done()
-        }, 2000);
+        }, 100);
       },
 
       /**
