@@ -2,7 +2,7 @@
 
 export const pdfType = ['PDF'];
 export const imagesType = ['JPEG','JPG', 'PNG', 'GIF', 'BMP'];
-export const wordType = ['XLS', 'PPT', 'DOC', 'DOCX', 'XLSX', 'PPTX'];
+export const wordType = ['XLS', 'PPT', 'DOC', 'DOCX', 'XLSX', 'PPTX','PPT'];
 export const typeHeader = {
   'application/pdf': 'PDF',
   'image/jpeg':'JPEG',

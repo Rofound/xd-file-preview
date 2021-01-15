@@ -405,7 +405,7 @@
   .img-preview-toolbar span * {
     margin: 0 6px;
     color: #fff;
-    font-size: 24px;
+    font-size: 30px;
     cursor: pointer;
     font-weight: 400;
   }
