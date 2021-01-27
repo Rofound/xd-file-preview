@@ -25,6 +25,14 @@
             url: "https://testimg.tiangongy.com/100601/b754ac77877f87fe56f870b27cc1c164"
           },
 
+          {
+            fileName: "测试ppt.ppt",
+            filePath: {"name": "测试ppt.ppt", "hashKey": "100601/2a60c4320e85bec690a1b242bbc0bfd1"},
+            hashKey: "100601/2a60c4320e85bec690a1b242bbc0bfd1",
+            name: "测试ppt.ppt",
+            url: "https://testimg.tiangongy.com/100601/2a60c4320e85bec690a1b242bbc0bfd1"
+          },
+
           {url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf'},
           {url: 'https://testimg.tiangongy.com/100601/3b85b4f1c3accdb4bb9f7e42e1f9070e', name: 'aaaa'},
           {

@@ -8,7 +8,7 @@ import {iconData, imagesType , wordType, pdfType} from './../contact';
 import Loading from "./loading";
 
 function check(options, $vue) {
-  console.log('options', options)
+  console.log('options', options['type'], JSON.stringify(wordType))
   //错误图片
   if (!options.status) {
     image(options, $vue);
@@ -17,15 +17,18 @@ function check(options, $vue) {
 
   //图片类型
   if (JSON.stringify(imagesType).indexOf(options['type']) !== -1) {
+    console.log('image');
     image(options, $vue);
   }
 
   //word文件类型
   if (JSON.stringify(wordType).indexOf(options['type']) !== -1) {
+    console.log('office');
     office(options, $vue);
   }
   //Pdf文件类型
   if (JSON.stringify(pdfType).indexOf(options['type']) !== -1) {
+    console.log('pdf');
     pdf(options, $vue);
   }
 }

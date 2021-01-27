@@ -1,6 +1,6 @@
 <template>
   <div class="xd-file-list__body">
-    <div class="xd-file-list__item" v-for="(item,index) in dataList" :key="index">
+    <div class="xd-file-list__item" v-if="item" v-for="(item,index) in dataList" :key="index">
       <div class="xd-file-list__item-icon">
         <img v-if="item['icon']" :src="item['icon']" alt="icon">
         <div v-else><i class="fileIconfont iconwenjian"></i></div>
@@ -40,7 +40,6 @@
     data() {
       return {
         dataList: [],
-        loaded: false
       }
     },
     watch: {
@@ -56,28 +55,36 @@
     methods: {
       setDataValue(val) {
         if (val.length > 0) {
-          this.dataList = val;
-
           //未加载过
           let temp = [];
-          this.dataList.map((item, index) => {
-            helper.getFileBase64(item.url, item.name ? item.name : '')
-              .then(res => {
-                res['status'] = true;
-                temp.push(Object.assign({}, item, res));
-              })
-              .catch(res => {
-                temp.push({
-                  src: iconData.loadicon,
-                  status: false,
-                  url: item['url'],
-                  source: item['url'],
+          val.map((item, index) => {
+
+            if (item[status]) {
+              temp[index] = item;
+            } else {
+              helper.getFileBase64(item.url, item.name ? item.name : '')
+                .then(res => {
+                  res['status'] = true;
+                  temp[index] = Object.assign({}, item, res);
+                })
+                .catch(res => {
+                  temp[index] = {
+                    src: iconData.loadicon,
+                    status: false,
+                    url: item['url'],
+                    source: item['url'],
+                  }
                 });
-              });
+            }
           });
-          this.dataList = temp;
-          this.$emit('change', this.dataList,'add');
-          this.loaded = true;
+
+          let timeer = setInterval(() => {
+            if (temp.length === val.length) {
+              this.dataList = temp;
+              this.$emit('change', this.dataList, 'add');
+              clearInterval(timeer);
+            }
+          }, 50);
         }
       },
 

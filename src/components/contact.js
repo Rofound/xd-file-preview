@@ -14,7 +14,7 @@ export const typeHeader = {
   'application/msword': 'DOC',
   'application/vnd.ms-excel':'XLS',
   'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'PPTX',
-  'application/vnd.ms-powerpoint':'ppt',
+  'application/vnd.ms-powerpoint':'PPT',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':'XLSX',
   'unkown': 'UNKOWN',
 };
