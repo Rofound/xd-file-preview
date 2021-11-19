@@ -4,7 +4,7 @@
       <div class="img-preview-l" v-if="options.status">
         <img :src="options.icon" width="30" height="30">
         <span>{{info.name|getFileName(options['type'].toLocaleLowerCase())}}</span>
-        <button class="btn" @click="download">下载</button>
+        <button v-if="isDownLoad" class="btn" @click="download">下载</button>
       </div>
       <div class="img-preview-close" @click="closeHandle(options.ele)"><i class="fileIconfont iconwrong"></i></div>
     </div>
@@ -65,12 +65,14 @@
 
     watch: {
       options(val) {
-        this.info = val
+        this.info = val;
+        if(val.download === false)  this.isDownLoad = val.download;
         console.log('options',val)
       }
     },
     filters: {
       getFileName(name, type) {
+        console.log('getFileName',name, type)
         if (name.indexOf(`.${type}`) === -1) {
           return `${name}.${type}`
         }
@@ -111,6 +113,7 @@
         /**image**/
 
         info: null,
+        isDownLoad: true,
       }
     },
 

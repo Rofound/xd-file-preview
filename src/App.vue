@@ -30,7 +30,8 @@
             filePath: {"name": "测试ppt.ppt", "hashKey": "100601/2a60c4320e85bec690a1b242bbc0bfd1"},
             hashKey: "100601/2a60c4320e85bec690a1b242bbc0bfd1",
             name: "测试ppt.ppt",
-            url: "https://testimg.tiangongy.com/100601/2a60c4320e85bec690a1b242bbc0bfd1"
+            url: "https://testimg.tiangongy.com/100601/2a60c4320e85bec690a1b242bbc0bfd1",
+            download: true
           },
 
           {url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf'},
@@ -38,7 +39,8 @@
           {
             url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
             name: 'aaaa',
-            fid: 'aadadads'
+            fid: 'aadadads',
+            download: false
           },
         ]
       }
@@ -64,14 +66,16 @@
        */
       handleClick() {
         this.$preview({
-          //url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf', //图片
-          //url: 'https://testimg.tiangongy.com/100601/9958ff80d202f91b347b14b5c56f14e8', // xlsx
+          //url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf?Expires=1637293878&OSSAccessKeyId=TMP.3Kjn5o8eLr1PbtHjwpa2F1gJoF8w5M1ntdhayMzJtih5GUKERj9vvhPDHWUFmGGzHAKDckSUYxbDr12hJ7knqz8oMyQwu6&Signature=UC%2BMHXqFh6UEFmwFHqy%2FX6zbv5c%3D', //图片
+          url: 'https://testimg.tiangongy.com/100601/9958ff80d202f91b347b14b5c56f14e8', // xlsx
           //url: 'https://testimg.tiangongy.com/100601/12d7e6a9b0b9169b800fbb29061212c2', //pptx
           //url: 'https://testimg.tiangongy.com/100601/ce44c69f3075334e6c624b8180a42804', //doc,
           //url: 'https://testimg.tiangongy.com/100601/3b85b4f1c3accdb4bb9f7e42e1f9070e',
-          url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
+          //url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
+          //url: "https://sandbox-jfb-file-common.oss-cn-qingdao.aliyuncs.com/uploads/20211119/6386d063ba428af9a251b78158c5d85e.0.6.pdf?Expires=1637293878&OSSAccessKeyId=TMP.3Kjn5o8eLr1PbtHjwpa2F1gJoF8w5M1ntdhayMzJtih5GUKERj9vvhPDHWUFmGGzHAKDckSUYxbDr12hJ7knqz8oMyQwu6&Signature=UC%2BMHXqFh6UEFmwFHqy%2FX6zbv5c%3D",
           //url:'https://jfb-public-images.oss-cn-qingdao.aliyuncs.com/admin-upload/202101052326075832.mp3',
-          fid: 'aadadads'
+          fid: 'aadadads',
+          download: false
         })
       },
     }

@@ -5,7 +5,7 @@
         <img :src="options.icon" height="30" width="30">
         <input class="pdf-preview__input" v-model.number="page" type="number">
         <span>/ {{numPages}}</span>
-        <button class="btn" @click="download">下载</button>
+        <button class="btn" v-if="isDownLoad" @click="download">下载</button>
         <span>{{info.name|getFileName(options['type'].toLocaleLowerCase())}}</span>
       </div>
       <div class="pdf-preview__title-close" @click="closeHandle(options.ele)"><i class="fileIconfont iconwrong"></i></div>
@@ -54,6 +54,7 @@
         rotate: 0,
         width: 0.5,
         info: null,
+        isDownLoad: true
       }
     },
     filters:{
@@ -67,6 +68,7 @@
     watch:{
       options(val){
         this.info = val;
+        if (val.download === false) this.isDownLoad = val.download;
         if(this.info['url']) {
           this.src= this.info['url']
         }
@@ -74,7 +76,7 @@
     },
     created(){
       this.info = this.options;
-
+      if (this.options.download === false) this.isDownLoad = this.options.download;
     },
     computed:{
       getWdith() {

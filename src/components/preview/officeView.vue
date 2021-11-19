@@ -4,7 +4,7 @@
       <div class="office-preview-text">
         <img :src="options.icon" height="30" width="30">
         <span>{{info.name|getFileName(options['type'].toLocaleLowerCase())}}</span>
-        <button class="btn" @click="download">下载</button>
+        <button v-if="isDownLoad" class="btn" @click="download">下载</button>
       </div>
       <div class="office-preview-close" @click="handleCloseClick(options.ele)"><i class="fileIconfont iconwrong"></i></div>
     </div>
@@ -33,6 +33,7 @@
     created(){
       if(this.options) {
         this.getUrl(this.options['source'])
+        if (this.options.download === false) this.isDownLoad = this.options.download;
       }
 
     },
@@ -50,6 +51,7 @@
           console.log('options',val);
           this.getUrl(val['source']);
           this.info = val;
+          if (val.download === false) this.isDownLoad = val.download;
         }
       }
     },
@@ -58,6 +60,7 @@
         otherPreviewUrl: 'https://view.officeapps.live.com/op/view.aspx?src=',
         src: '',
         info: null,
+        isDownLoad: true,
       }
     },
     methods: {

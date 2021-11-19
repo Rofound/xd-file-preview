@@ -151,10 +151,10 @@ class Helper {
    */
   getFileBase64(url='',name = '') {
     return new Promise((resolve, reject) => {
-      let getName = ()=> {
-        let arr = url.split('/');
-        let reg = /^(.+)\.(.*)$/;
-        //console.log('getName', arr[arr.length - 1], arr[arr.length - 1].match(reg));
+      let getName = (type)=> {
+        let str = url;
+        if(str.indexOf('?')) str = url.split('?')[0];
+        let arr = str.split('/');
         return arr[arr.length - 1];
       };
 
@@ -162,13 +162,13 @@ class Helper {
       x.open("GET", url, true);
       x.responseType = "blob";
       x.onload = (e) => {
-        console.log(e.target['response']);
+        console.log('XMLHttpRequest',e.target['response']);
         if (e.target['status'] === 200) {
-          //console.log(url);
+          //console.log('this.checkFileType(e.target[\'response\'])',url,this.checkFileType(e.target['response']));
           let temp = {
             type: this.checkFileType(e.target['response']),
             size: e.target['response']['size'],
-            name: name ? name: getName(),
+            name: name ? name: getName(this.checkFileType(e.target['response'])),
           };
 
           this.fileReaderBase64(e.target['response'])
