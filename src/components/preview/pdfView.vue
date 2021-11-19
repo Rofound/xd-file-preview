@@ -5,41 +5,34 @@
         <img :src="options.icon" height="30" width="30">
         <input class="pdf-preview__input" v-model.number="page" type="number">
         <span>/ {{numPages}}</span>
-        <button class="btn" @click="download">下载</button>
-        <span>{{info.name}}.{{options['type'].toLocaleLowerCase()}}</span>
+        <button class="btn" v-if="isDownLoad" @click="download">下载</button>
+        <span>{{info.name|getFileName(options['type'].toLocaleLowerCase())}}</span>
       </div>
-      <div class="pdf-preview__title-close" @click="closeHandle(options.ele)"><i class=" iconfont iconwrong"></i></div>
+      <div class="pdf-preview__title-close" @click="closeHandle(options.ele)"><i class="fileIconfont iconwrong"></i></div>
     </div>
     <div class="pdf-preview__content" :style="`width: ${getWdith}`">
-      <pdf
-        class="pdf-preview__content-pdf"
-        ref="pdf"
-        :src="src"
-        :page="page"
-        :rotate="rotate"
-        @password="password"
-        @progress="loadedRatio = $event"
-        @error="error"
-        @num-pages="numPages = $event"
-        @link-clicked="page = $event">
-      </pdf>
+      <xd-pdf
+        :file-url="info['response']"
+        @num-pages="setTotalNumPages"
+        :current-pages="page"
+      ></xd-pdf>
     </div>
     <div class="img-preview__toolbar">
       <span>
-        <i class="iconfont iconfangda" @click="zoomHandle(1)"></i>
-        <i class="iconfont iconsuoxiao" @click="zoomHandle(-1)"></i>
-        <i class="iconfont iconpageup" @click="overPage(-1)"></i>
-        <i class="iconfont iconpagedown" @click="overPage(1)"></i>
-        <i class="iconfont iconhuanyuan" @click="zoomOriginalSize()"></i>
+        <i class="fileIconfont iconfangda" @click="zoomHandle(1)"></i>
+        <i class="fileIconfont iconsuoxiao" @click="zoomHandle(-1)"></i>
+        <i class="fileIconfont iconpageup" @click="overPage(-1)"></i>
+        <i class="fileIconfont iconpagedown" @click="overPage(1)"></i>
+        <i class="fileIconfont iconhuanyuan" @click="zoomOriginalSize()"></i>
       </span>
     </div>
     <div class="img-preview__bottom"></div>
   </div>
 </template>
 <script>
-  import pdf from 'vue-pdf'
-  import helper from "@/components/preview/helper";
+  import helper from "./helper";
   import download from 'downloadjs';
+  import XdPdf from "../XdPdf";
 
   export default {
     name: "xdPdfPreview",
@@ -51,7 +44,7 @@
         }
       },
     },
-    components: {pdf},
+    components: {XdPdf},
     data() {
       return {
         src: '',
@@ -61,18 +54,29 @@
         rotate: 0,
         width: 0.5,
         info: null,
+        isDownLoad: true
+      }
+    },
+    filters:{
+      getFileName(name, type){
+        if(name.indexOf(`.${type}`) === -1) {
+          return `${name}.${type}`
+        }
+        return name;
       }
     },
     watch:{
       options(val){
         this.info = val;
+        if (val.download === false) this.isDownLoad = val.download;
         if(this.info['url']) {
-          this.src = this.info['url'];
+          this.src= this.info['url']
         }
       },
     },
     created(){
       this.info = this.options;
+      if (this.options.download === false) this.isDownLoad = this.options.download;
     },
     computed:{
       getWdith() {
@@ -80,12 +84,17 @@
       },
     },
     methods: {
+      /**
+       * @description 设置总页数
+       */
+      setTotalNumPages(num){
+        this.numPages = num;
+      },
       closeHandle(id) {
         this.close(id);
       },
 
       download(){
-        console.log(this.info)
         download(this.info['response'], this.info['name'])
       },
 
@@ -144,7 +153,8 @@
 </script>
 <style type="text/css">
   @import "style.css";
-  i.iconfont {
+
+  .pdf-preview i.fileIconfont {
     font-size: 30px;
     font-weight: normal;
   }

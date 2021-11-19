@@ -2,7 +2,7 @@
 
 export const pdfType = ['PDF'];
 export const imagesType = ['JPEG','JPG', 'PNG', 'GIF', 'BMP'];
-export const wordType = ['XLS', 'PPT', 'DOC', 'DOCX', 'XLSX', 'PPTX'];
+export const wordType = ['XLS', 'PPT', 'DOC', 'DOCX', 'XLSX', 'PPTX','PPT'];
 export const typeHeader = {
   'application/pdf': 'PDF',
   'image/jpeg':'JPEG',
@@ -14,7 +14,7 @@ export const typeHeader = {
   'application/msword': 'DOC',
   'application/vnd.ms-excel':'XLS',
   'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'PPTX',
-  'application/vnd.ms-powerpoint':'ppt',
+  'application/vnd.ms-powerpoint':'PPT',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':'XLSX',
   'unkown': 'UNKOWN',
 };

@@ -1,9 +1,18 @@
-import Vue from 'vue';
-import officePreview  from "./office.vue";
-import helper from "@/components/preview/helper";
+'use strict';
 
-export default function (options) {
-	let $vm = helper.createElement(options, Vue, officePreview);
-	helper.hideScroll(1);
-	document.body.appendChild($vm.$el);
+import officePreview  from "./officeView";
+import helper from "./helper";
+
+
+/**
+ * @description Office预览功能
+ * @param options {object}
+ * @param options.fid 文件ID，唯一id（必填）
+ * @param options.name 文件名称
+ * @param options.type 文件类型
+ * @param options.url // Office地址
+ * @param $vue Vue
+ */
+export default function (options, $vue) {
+	helper.createElement(options, $vue, officePreview);
 }

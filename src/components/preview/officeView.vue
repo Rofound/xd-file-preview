@@ -3,10 +3,10 @@
     <div class="office-preview-title">
       <div class="office-preview-text">
         <img :src="options.icon" height="30" width="30">
-        <span>{{options.name}}.{{options['type'].toLocaleLowerCase()}}</span>
-        <button class="btn" @click="download">下载</button>
+        <span>{{info.name|getFileName(options['type'].toLocaleLowerCase())}}</span>
+        <button v-if="isDownLoad" class="btn" @click="download">下载</button>
       </div>
-      <div class="office-preview-close" @click="handleCloseClick(options.ele)"><i class="iconfont iconwrong"></i></div>
+      <div class="office-preview-close" @click="handleCloseClick(options.ele)"><i class="fileIconfont iconwrong"></i></div>
     </div>
     <div class="office-preview-content">
       <div class="office-preview-content-box">
@@ -21,7 +21,7 @@
   import download from 'downloadjs';
 
   export default {
-    name: "office-preview",
+    name: "XdOfficePreview",
     props: {
       options:{
         type: Object|null,
@@ -33,8 +33,17 @@
     created(){
       if(this.options) {
         this.getUrl(this.options['source'])
+        if (this.options.download === false) this.isDownLoad = this.options.download;
       }
 
+    },
+    filters: {
+      getFileName(name, type) {
+        if (name.indexOf(`.${type}`) === -1) {
+          return `${name}.${type}`
+        }
+        return name;
+      }
     },
     watch: {
       options(val) {
@@ -42,6 +51,7 @@
           console.log('options',val);
           this.getUrl(val['source']);
           this.info = val;
+          if (val.download === false) this.isDownLoad = val.download;
         }
       }
     },
@@ -50,6 +60,7 @@
         otherPreviewUrl: 'https://view.officeapps.live.com/op/view.aspx?src=',
         src: '',
         info: null,
+        isDownLoad: true,
       }
     },
     methods: {
@@ -137,9 +148,6 @@
     line-height: 30px;
   }
 
-  .office-preview-close .el-icon-close {
-    font-weight: normal;
-  }
 
   .office-preview-content {
     height: -moz-calc(100% - 0);
@@ -152,7 +160,7 @@
   }
 
   .office-preview-content  iframe {
-    background: #000;
+    background: rgba(0,0,0,.5);
     height: 100%;
   }
 

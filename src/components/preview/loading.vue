@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import {iconData} from '@/components/contact'
+  import {iconData} from './../contact'
   export default {
     name: "loading",
     props: ['show'],
@@ -39,6 +39,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10000;
   }
   .xd-loading-box {
     height: 120px;

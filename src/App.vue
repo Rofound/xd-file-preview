@@ -1,22 +1,83 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <h1>列表展示</h1>
+    <xd-file-list-preview :show-close="true" :list="list" @remove="handleRemoveClick"></xd-file-list-preview>
+    <hr>
+    <h1>文件预览模式</h1>
+    <a @click="handleClick" style="color: #4285f4">9958ff80d202f91b347b14b5c56f14e811</a>
+  </div>
 </template>
 
 <script>
+  import XdFileListPreview from "@/components/XdFileListPreview";
+
   export default {
     name: 'app',
-    components: {
+    components: {XdFileListPreview},
+    data() {
+      return {
+        list: [
+          {
+            fileName: "快递模版-2.jpg",
+            filePath: {"name": "快递模版-2.jpg", "hashKey": "100601/b754ac77877f87fe56f870b27cc1c164"},
+            hashKey: "100601/b754ac77877f87fe56f870b27cc1c164",
+            name: "快递模版-2.jpg",
+            url: "https://testimg.tiangongy.com/100601/b754ac77877f87fe56f870b27cc1c164"
+          },
 
+          {
+            fileName: "测试ppt.ppt",
+            filePath: {"name": "测试ppt.ppt", "hashKey": "100601/2a60c4320e85bec690a1b242bbc0bfd1"},
+            hashKey: "100601/2a60c4320e85bec690a1b242bbc0bfd1",
+            name: "测试ppt.ppt",
+            url: "https://testimg.tiangongy.com/100601/2a60c4320e85bec690a1b242bbc0bfd1",
+            download: true
+          },
+
+          {url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf'},
+          {url: 'https://testimg.tiangongy.com/100601/3b85b4f1c3accdb4bb9f7e42e1f9070e', name: 'aaaa'},
+          {
+            url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
+            name: 'aaaa',
+            fid: 'aadadads',
+            download: false
+          },
+        ]
+      }
     },
     created() {
-      this.$preview({
-        url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf11', //图片
-        //url: 'https://testimg.tiangongy.com/100601/9958ff80d202f91b347b14b5c56f14e8', // xlsx
-        //url: 'https://testimg.tiangongy.com/100601/12d7e6a9b0b9169b800fbb29061212c2', //pptx
-        //url: 'https://testimg.tiangongy.com/100601/ce44c69f3075334e6c624b8180a42804', //doc,
-        //url: 'https://testimg.tiangongy.com/100601/3b85b4f1c3accdb4bb9f7e42e1f9070e',
-        fid: 'aadadads'
-      })
+    },
+    methods: {
+      /**
+       * @description 删除图片事件
+       * @param item {Object} 当前被删除的文件对象
+       * @param done {function} 删除文件完成回调函数
+       */
+      handleRemoveClick(item, done) {
+        console.log('aaaaaaaa')
+        setTimeout(() => {
+          console.log('handleRemoveClick', item);
+          done()
+        }, 100);
+      },
+
+      /**
+       * @description 点击查看预览功能
+       */
+      handleClick() {
+        this.$preview({
+          //url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf?Expires=1637293878&OSSAccessKeyId=TMP.3Kjn5o8eLr1PbtHjwpa2F1gJoF8w5M1ntdhayMzJtih5GUKERj9vvhPDHWUFmGGzHAKDckSUYxbDr12hJ7knqz8oMyQwu6&Signature=UC%2BMHXqFh6UEFmwFHqy%2FX6zbv5c%3D', //图片
+          url: 'https://testimg.tiangongy.com/100601/9958ff80d202f91b347b14b5c56f14e8', // xlsx
+          //url: 'https://testimg.tiangongy.com/100601/12d7e6a9b0b9169b800fbb29061212c2', //pptx
+          //url: 'https://testimg.tiangongy.com/100601/ce44c69f3075334e6c624b8180a42804', //doc,
+          //url: 'https://testimg.tiangongy.com/100601/3b85b4f1c3accdb4bb9f7e42e1f9070e',
+          //url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
+          //url: "https://sandbox-jfb-file-common.oss-cn-qingdao.aliyuncs.com/uploads/20211119/6386d063ba428af9a251b78158c5d85e.0.6.pdf?Expires=1637293878&OSSAccessKeyId=TMP.3Kjn5o8eLr1PbtHjwpa2F1gJoF8w5M1ntdhayMzJtih5GUKERj9vvhPDHWUFmGGzHAKDckSUYxbDr12hJ7knqz8oMyQwu6&Signature=UC%2BMHXqFh6UEFmwFHqy%2FX6zbv5c%3D",
+          //url:'https://jfb-public-images.oss-cn-qingdao.aliyuncs.com/admin-upload/202101052326075832.mp3',
+          fid: 'aadadads',
+          download: false
+        })
+      },
     }
   }
 </script>
@@ -26,7 +87,7 @@
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
+    text-align: left;
     color: #2c3e50;
     margin-top: 60px;
   }

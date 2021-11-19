@@ -1,21 +1,49 @@
 'use strict';
 
 const MD5 = require('md5.js');
-import {iconData, typeHeader } from "@/components/contact";
+import {iconData, typeHeader } from "./../contact";
 
 class Helper {
-
-
   hideScroll(type){
     let body = document.getElementsByTagName('body')[0];
     if (type === 1) {
       body.style.overflowY = 'hidden';
       body.style.height = '100%';
     } else {
-      body.style.overflowY = 'auto';
-      body.style.height = 'auto';
+      body.style.overflowY = '';
+      body.style.height = '';
     }
   };
+
+  /**
+   * @description 字符串截取
+   * @param val
+   * @param len
+   */
+  cutStringLen(val, len = 10) {
+    let fix = '...';
+    let newLength = 0;
+    let newStr = "";
+    let chineseRegex = /[^\x00-\xff]/g;
+    let singleChar = "";
+    let strLength = val.replace(chineseRegex, "**").length;
+    for (let i = 0; i < strLength; i++) {
+      singleChar = val.charAt(i).toString();
+      if (singleChar.match(chineseRegex) != null) {
+        newLength += 2;
+      } else {
+        newLength++;
+      }
+      if (newLength > len) {
+        break;
+      }
+      newStr += singleChar;
+    }
+    if (strLength > len) {
+      newStr += fix;
+    }
+    return newStr;
+  }
 
   checkVarType(obj) {
     let toString = Object.prototype.toString;
@@ -29,7 +57,8 @@ class Helper {
       '[object RegExp]': 'regExp',
       '[object Undefined]': 'undefined',
       '[object Null]': 'null',
-      '[object Object]': 'object'
+      '[object Object]': 'object',
+      '[object Blob]' : 'blob'
     };
     return map[toString.call(obj)];
   }
@@ -122,10 +151,10 @@ class Helper {
    */
   getFileBase64(url='',name = '') {
     return new Promise((resolve, reject) => {
-      let getName = ()=> {
-        let arr = url.split('/');
-        let reg = /^(.+)\.(.*)$/;
-        //console.log('getName', arr[arr.length - 1], arr[arr.length - 1].match(reg));
+      let getName = (type)=> {
+        let str = url;
+        if(str.indexOf('?')) str = url.split('?')[0];
+        let arr = str.split('/');
         return arr[arr.length - 1];
       };
 
@@ -133,13 +162,13 @@ class Helper {
       x.open("GET", url, true);
       x.responseType = "blob";
       x.onload = (e) => {
-        console.log(e.target['response']);
+        console.log('XMLHttpRequest',e.target['response']);
         if (e.target['status'] === 200) {
-          //console.log(url);
+          //console.log('this.checkFileType(e.target[\'response\'])',url,this.checkFileType(e.target['response']));
           let temp = {
             type: this.checkFileType(e.target['response']),
             size: e.target['response']['size'],
-            name: name ? name: getName(),
+            name: name ? name: getName(this.checkFileType(e.target['response'])),
           };
 
           this.fileReaderBase64(e.target['response'])
@@ -259,6 +288,7 @@ class Helper {
    * @param view vue文件（必填）
    */
   createElement(options, Vue, view){
+    console.log('PDF预览功能', options);
     let str = `${options.name}${options['fid']}`;
     let elId = `img-${this.md5Fn(str)}`;
     let ele = document.getElementById(elId);
@@ -280,7 +310,9 @@ class Helper {
       ele.style.display = "none";
       this.hideScroll(-1);
     };
-    return $view;
+
+    document.body.appendChild($view.$el);
+    this.hideScroll(1);
   }
 
 }

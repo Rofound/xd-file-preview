@@ -1,6 +1,7 @@
-import Vue from 'vue';
-import imgPreview  from "./image.vue";
-import helper from "@/components/preview/helper";
+'use strict';
+
+import imgPreview  from "./imageView";
+import helper from "./helper";
 
 /**
  * @description 图片预览功能
@@ -9,9 +10,9 @@ import helper from "@/components/preview/helper";
  * @param options.name 文件名称
  * @param options.type 文件类型
  * @param options.url //图片地址
+ * @param $vue Vue
  */
-export default function (options) {
-	let $vm = helper.createElement(options, Vue, imgPreview);
-	helper.hideScroll(1);
-	document.body.appendChild($vm.$el);
+export default function (options, $vue) {
+  console.log('111,PDF预览功能');
+	 helper.createElement(options, $vue, imgPreview);
 }

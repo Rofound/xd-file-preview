@@ -3,11 +3,10 @@
     <div class="img-preview-title" ref="imgPreviewHeader">
       <div class="img-preview-l" v-if="options.status">
         <img :src="options.icon" width="30" height="30">
-        <span v-html="options.name"></span>
-        <span>.{{options['type'].toLocaleLowerCase()}}</span>
-        <button class="btn" @click="download">下载</button>
+        <span>{{info.name|getFileName(options['type'].toLocaleLowerCase())}}</span>
+        <button v-if="isDownLoad" class="btn" @click="download">下载</button>
       </div>
-      <div class="img-preview-close" @click="closeHandle(options.ele)"><i class="iconfont iconwrong"></i></div>
+      <div class="img-preview-close" @click="closeHandle(options.ele)"><i class="fileIconfont iconwrong"></i></div>
     </div>
     <div class="img-preview-content">
       <div v-show="options.status" class="img-preview-content-box" @click="closeHandle(options.ele)"
@@ -37,11 +36,11 @@
     </div>
     <div class="img-preview-toolbar" v-if="options.status && isShowToolbar">
       <span>
-        <i class="iconfont iconfangda" @click="zoomHandle(1)"></i>
-        <i class="iconfont iconsuoxiao" @click="zoomHandle(-1)"></i>
-        <i class="iconfont iconzuozhuan" @click="rotateHandle(-1)"></i>
-        <i class="iconfont iconyouzhuan" @click="rotateHandle(1)"></i>
-        <i class="iconfont iconhuanyuan" @click="zoomOriginalSize()"></i>
+        <i class="fileIconfont iconfangda" @click="zoomHandle(1)"></i>
+        <i class="fileIconfont iconsuoxiao" @click="zoomHandle(-1)"></i>
+        <i class="fileIconfont iconzuozhuan" @click="rotateHandle(-1)"></i>
+        <i class="fileIconfont iconyouzhuan" @click="rotateHandle(1)"></i>
+        <i class="fileIconfont iconhuanyuan" @click="zoomOriginalSize()"></i>
       </span>
     </div>
     <div class="img-preview-bottom"></div>
@@ -49,7 +48,7 @@
 </template>
 <script>
   import lodash from "lodash";
-  import {iconData} from '@/components/contact'
+  import {iconData} from './../contact'
   import download from 'downloadjs';
 
   window.timeer = null;
@@ -66,7 +65,18 @@
 
     watch: {
       options(val) {
-        this.info = val
+        this.info = val;
+        if(val.download === false)  this.isDownLoad = val.download;
+        console.log('options',val)
+      }
+    },
+    filters: {
+      getFileName(name, type) {
+        console.log('getFileName',name, type)
+        if (name.indexOf(`.${type}`) === -1) {
+          return `${name}.${type}`
+        }
+        return name;
       }
     },
     data() {
@@ -103,6 +113,7 @@
         /**image**/
 
         info: null,
+        isDownLoad: true,
       }
     },
 
@@ -300,7 +311,7 @@
   .img-preview-title {
     width: 100%;
     height: 48px;
-    background: rgba(0, 0, 0, 0.5);
+    background: #333;
     color: #fff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
@@ -352,7 +363,7 @@
     left: 0;
     right: 0;
     height: 0;
-    background: #000;
+    background: #333;
   }
 
   .img-preview-close {
@@ -365,12 +376,12 @@
     line-height: 30px;
   }
 
-  i.iconfont {
+  i.fileIconfont {
     font-size: 30px;
     font-weight: normal;
   }
 
-  i.iconfont.iconzuozhuan, i.iconfont.iconyouzhuan, i.iconfont.iconhuanyuan {
+  i.fileIconfont.iconzuozhuan, i.fileIconfont.iconyouzhuan, i.fileIconfont.iconhuanyuan {
     font-size: 28px;
     font-weight: normal !important;
   }
@@ -397,7 +408,7 @@
   .img-preview-toolbar span * {
     margin: 0 6px;
     color: #fff;
-    font-size: 24px;
+    font-size: 30px;
     cursor: pointer;
     font-weight: 400;
   }
@@ -501,7 +512,7 @@
 
   }
 
-  i.iconfont.iconwenjian {
+  i.fileIconfont.iconwenjian {
     font-size: 60px;
     font-weight: normal;
   }

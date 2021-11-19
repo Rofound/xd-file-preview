@@ -1,23 +1,132 @@
 # Gxd-vue-file-preview
 
 #### 介绍
-
-vue cli 文件在线预览展示功能
-
-## 安装
-```
-npm install vue-file-preview --save --registry  https://registry.npm.taobao.org
+```text
+vue 文件在线预览展示功能，支持文件（PDF，PNG，JPEG，JPG，GIF，DOC，DOCX，PPT，PPTX，ELXS，ELX）
 ```
 
-## 插件全局引用
+#### 预览
+```markdown
+![demo](http://static.e56buy.com/1610238353869.jpg "demo")
+```
+
+
+#### 安装
+```bash
+npm i gxd-file-preview --save --registry  https://registry.npm.taobao.org
+```
+
+#### 插件全局引用
 ``` javascript
 
 import vueFilePreview from 'gxd-file-preview';
 
-//初始化自定义插件
-Vue.use(vueFilePreview,{});
+//初始化自定义插件，（pdf.js,worker.js文件建议放在本地服务器),cdn有可能不稳定
+Vue.use(vueFilePreview,{
+    pdf: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.288/build/pdf.min.js', //pdf插件
+    worker:'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.288/build/pdf.worker.min.js',//pdf.work插件
+});
+
+```
 
 
+#### 插件使用
+```vue
+<template>
+  <div id="app"></div>
+</template>
+
+<script>
+  export default {
+    name: 'app',
+    components: {},
+    data(){
+      return {}
+    },
+    created() {
+      setTimeout(()=>{
+        this.$preview({
+          //url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf', //图片
+          //url: 'https://testimg.tiangongy.com/100601/9958ff80d202f91b347b14b5c56f14e8', // xlsx
+          //url: 'https://testimg.tiangongy.com/100601/12d7e6a9b0b9169b800fbb29061212c2', //pptx
+          //url: 'https://testimg.tiangongy.com/100601/ce44c69f3075334e6c624b8180a42804', //doc,
+          //url: 'https://testimg.tiangongy.com/100601/3b85b4f1c3accdb4bb9f7e42e1f9070e',
+          url:'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
+          fid: '12121212'
+        })
+      }, 2000);
+
+    },
+    methods:{
+
+    }
+  }
+</script>
+
+<style>
+</style>
+```
+
+```vue
+<template>
+    <div id="app">
+        <h1>列表展示</h1>
+        <xd-file-list-preview :show-close="showClose" :list="list" @remove="handleRemoveClick"></xd-file-list-preview>
+        <hr>
+        <h1>文件预览模式</h1>
+        <a @click="handleClick" style="color: #4285f4">9958ff80d202f91b347b14b5c56f14e811</a>
+    </div>
+</template>
+
+<script>
+  export default {
+    name: 'app',
+    components: {},
+    data() {
+      return {
+        showClose: true, //是否开启删除功能
+        list: [
+          {url: 'https://testimg.tiangongy.com/100601/9958ff80d202f91b347b14b5c56f14e811'},
+          {url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf'},
+          {url: 'https://testimg.tiangongy.com/100601/3b85b4f1c3accdb4bb9f7e42e1f9070e', name: 'aaaa'},
+          {
+            url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
+            name: 'aaaa',
+            fid: 'aadadads'
+          },
+        ]
+      }
+    },
+    created() {
+    },
+    methods: {
+      /**
+       * @description 删除图片事件
+       * @param item {Object} 当前被删除的文件对象
+       * @param done {function} 删除文件完成回调函数
+       */
+      handleRemoveClick(item, done) {
+        setTimeout(() => {
+          console.log('handleRemoveClick', item);
+          done()
+        }, 2000);
+      },
+
+      /**
+       * @description 点击查看预览功能
+       */
+      handleClick() {
+        this.$preview({
+          url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
+          fid: 'aadadads'
+        })
+      },
+    }
+  }
+</script>
+
+<style>
+</style>
 ```
 
 ##### 项目开发下载与初始化
