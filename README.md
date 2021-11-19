@@ -92,7 +92,8 @@ Vue.use(vueFilePreview,{
           {
             url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
             name: 'aaaa',
-            fid: 'aadadads'
+            fid: 'aadadads',
+            download: false ,//是否展示下载按钮
           },
         ]
       }
@@ -118,7 +119,8 @@ Vue.use(vueFilePreview,{
       handleClick() {
         this.$preview({
           url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
-          fid: 'aadadads'
+          fid: 'aadadads',
+          download: false ,//是否展示下载按钮
         })
       },
     }
