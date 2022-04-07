@@ -48,7 +48,7 @@
     watch: {
       options(val) {
         if (val) {
-          console.log('options',val);
+          console.log('options',val)
           this.getUrl(val['source']);
           this.info = val;
           if (val.download === false) this.isDownLoad = val.download;

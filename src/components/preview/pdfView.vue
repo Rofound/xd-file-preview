@@ -76,7 +76,7 @@
     },
     created(){
       this.info = this.options;
-      if (this.options.download === false) this.isDownLoad = this.options.download;
+      if (this.options && this.options.download === false) this.isDownLoad = this.options.download;
     },
     computed:{
       getWdith() {
