@@ -81,13 +81,9 @@
        */
       handleClick() {
         this.$preview({
-          //url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf?Expires=1637293878&OSSAccessKeyId=TMP.3Kjn5o8eLr1PbtHjwpa2F1gJoF8w5M1ntdhayMzJtih5GUKERj9vvhPDHWUFmGGzHAKDckSUYxbDr12hJ7knqz8oMyQwu6&Signature=UC%2BMHXqFh6UEFmwFHqy%2FX6zbv5c%3D', //图片
-          //url: 'https://imgcp.agiso.com/1141592/202110/bd154cadeb8147809262a4e7fa1e8055.jpg', // xlsx
-          //url: 'https://testimg.tiangongy.com/100601/12d7e6a9b0b9169b800fbb29061212c2', //pptx
-          //url: 'https://testimg.tiangongy.com/100601/ce44c69f3075334e6c624b8180a42804', //doc,
-          //url: 'https://testimg.tiangongy.com/100601/3b85b4f1c3accdb4bb9f7e42e1f9070e',
+          //url: 'http://static.e56buy.com/XdU9Tmy2x6OGydRUQpWmThRaZKL1gkbd.ceshiyo.xlsx', // xlsx
+          //url: 'http://static.e56buy.com/XdgfsqR2INp7uFxTuLQtnMstYLY4K8rr.蛋糕缺少内容.docx', //doc,
           url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
-
           fid: 'aadadads',
           download: false
         })

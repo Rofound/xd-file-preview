@@ -86,9 +86,9 @@ Vue.use(vueFilePreview,{
       return {
         showClose: true, //是否开启删除功能
         list: [
-          {url: 'https://testimg.tiangongy.com/100601/9958ff80d202f91b347b14b5c56f14e811'},
-          {url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf'},
-          {url: 'https://testimg.tiangongy.com/100601/3b85b4f1c3accdb4bb9f7e42e1f9070e', name: 'aaaa'},
+          {url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf'},
+          {url: 'https://jfb-public-images.oss-cn-qingdao.aliyuncs.com/admin-upload/202111081034429231.png?x-oss-process=style/common'},
+          {url: 'http://static.e56buy.com/XdgfsqR2INp7uFxTuLQtnMstYLY4K8rr.蛋糕缺少内容.docx', name: 'aaaa'},
           {
             url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
             name: 'aaaa',
@@ -178,5 +178,11 @@ location /img/ {
     autoindex on;
 }
 
+```
+
+```text
+版本日志
+1.1.17 
+修复预览offic系列访问不成功问题
 ```
 
