@@ -79,20 +79,28 @@ Vue.use(vueFilePreview,{
 </template>
 
 <script>
+  interface FileItemFormat {
+    url:string; //文件路径（绝对路径）
+    name?: string; //文件名称
+    fid?: string; //文件ID
+    download?: string; //预览页面是否显示下载按钮
+  }
   export default {
     name: 'app',
     components: {},
     data() {
       return {
         showClose: true, //是否开启删除功能
+        /**@type FileItemFormat **/
         list: [
-          {url: 'https://testimg.tiangongy.com/100601/9958ff80d202f91b347b14b5c56f14e811'},
-          {url: 'https://testimg.tiangongy.com/100601/a024b86760bb1ff3b38f25ae2e0b9bdf'},
-          {url: 'https://testimg.tiangongy.com/100601/3b85b4f1c3accdb4bb9f7e42e1f9070e', name: 'aaaa'},
+          {url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf'},
+          {url: 'https://jfb-public-images.oss-cn-qingdao.aliyuncs.com/admin-upload/202111081034429231.png?x-oss-process=style/common'},
+          {url: 'http://static.e56buy.com/XdgfsqR2INp7uFxTuLQtnMstYLY4K8rr.蛋糕缺少内容.docx', name: 'aaaa'},
           {
             url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
             name: 'aaaa',
-            fid: 'aadadads'
+            fid: 'aadadads',
+            download: false ,//是否展示下载按钮
           },
         ]
       }
@@ -118,7 +126,8 @@ Vue.use(vueFilePreview,{
       handleClick() {
         this.$preview({
           url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf',
-          fid: 'aadadads'
+          fid: 'aadadads',
+          download: false ,//是否展示下载按钮
         })
       },
     }
@@ -145,7 +154,7 @@ npm install
 建议通过npm按照，通过如下操作解决 npm 下载速度慢的问题
 npm install --save --registry=https://registry.npm.taobao.org
 ```
-##### Nginx配置静态资源可以跨域访问
+##### Nginx配置静态资源可以跨域访问（注意访问静态资源需要做跨域处理）
 ```text
 
 #全局模式
@@ -176,5 +185,14 @@ location /img/ {
     autoindex on;
 }
 
+```
+
+```text
+版本日志
+1.1.18 
+优化文档显示
+
+1.1.17 
+修复预览offic系列访问不成功问题
 ```
 

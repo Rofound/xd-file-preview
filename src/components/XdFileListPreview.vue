@@ -65,7 +65,8 @@
               helper.getFileBase64(item.url, item.name ? item.name : '')
                 .then(res => {
                   res['status'] = true;
-                  temp[index] = Object.assign({}, item, res);
+                  temp[index] = Object.assign({source: item['url']}, item, res, );
+                  console.log(temp[index])
                 })
                 .catch(res => {
                   temp[index] = {
@@ -78,11 +79,14 @@
             }
           });
 
+
+
           let timeer = setInterval(() => {
             if (temp.length === val.length) {
               this.dataList = temp;
               this.$emit('change', this.dataList, 'add');
               clearInterval(timeer);
+              console.log('setInterval', temp)
             }
           }, 50);
         }
