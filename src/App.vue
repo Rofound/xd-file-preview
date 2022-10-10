@@ -36,28 +36,30 @@
             fid: 'test.jpg',
             download: false
           },
-
           {
             url: 'http://static.e56buy.com/Xd9EfP1YFgdaYbI6H3RBiG6E3HAF6udj.PlayerAPI_v1.0.6.pdf',
             name: 'Xd9EfP1YFgdaYbI6H3RBiG6E3HAF6udj.pdf',
             fid: 'Xd9EfP1YFgdaYbI6H3RBiG6E3HAF6udj.pdf',
             download: false
           },
-
           {
             url: 'http://static.e56buy.com/XdgfsqR2INp7uFxTuLQtnMstYLY4K8rr.蛋糕缺少内容.docx',
             name: 'Xd9EfP1YFgdaYbI6H3RBiG6E3HAF6udj.docx',
             fid: 'Xd9EfP1YFgdaYbI6H3RBiG6E3HAF6udj.docx',
             download: false
           },
-
           {
             url: 'http://static.e56buy.com/XdU9Tmy2x6OGydRUQpWmThRaZKL1gkbd.ceshiyo.xlsx',
             name: 'ka.xlsx',
             fid: 'ka.xlsx',
             download: false
           },
-
+          {
+            url: 'http://static.e56buy.com/XdgfsqR2INp7uFxTuLQtnMstYLY4K8rr.蛋糕缺少内容.docx',
+            name: 'PlayerAPI_v1.0.6.pdf',
+            fid: 'PlayerAPI_v1.0.6.pdf',
+            download: false
+          },
         ]
       }
     },

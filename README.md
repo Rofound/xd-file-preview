@@ -79,12 +79,19 @@ Vue.use(vueFilePreview,{
 </template>
 
 <script>
+  interface FileItemFormat {
+    url:string; //文件路径（绝对路径）
+    name?: string; //文件名称
+    fid?: string; //文件ID
+    download?: string; //预览页面是否显示下载按钮
+  }
   export default {
     name: 'app',
     components: {},
     data() {
       return {
         showClose: true, //是否开启删除功能
+        /**@type FileItemFormat **/
         list: [
           {url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf'},
           {url: 'https://jfb-public-images.oss-cn-qingdao.aliyuncs.com/admin-upload/202111081034429231.png?x-oss-process=style/common'},
@@ -147,7 +154,7 @@ npm install
 建议通过npm按照，通过如下操作解决 npm 下载速度慢的问题
 npm install --save --registry=https://registry.npm.taobao.org
 ```
-##### Nginx配置静态资源可以跨域访问
+##### Nginx配置静态资源可以跨域访问（注意访问静态资源需要做跨域处理）
 ```text
 
 #全局模式
@@ -182,6 +189,9 @@ location /img/ {
 
 ```text
 版本日志
+1.1.18 
+优化文档显示
+
 1.1.17 
 修复预览offic系列访问不成功问题
 ```
