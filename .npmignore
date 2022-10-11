@@ -17,6 +17,9 @@ node_modules
 /devServer.js
 /settings.js
 /vue.config.js
+/lib/dome.html
+/lib/gxd.umd.js
+/lib/gxd.common.js
 
 
 
