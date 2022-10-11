@@ -71,7 +71,11 @@ Vue.use(vueFilePreview,{
 <template>
     <div id="app">
         <h1>列表展示</h1>
-        <xd-file-list-preview :show-close="showClose" :list="list" @remove="handleRemoveClick"></xd-file-list-preview>
+        <xd-file-list-preview 
+          :show-close="showClose" 
+          :list="list" @remove="handleRemoveClick"
+          :is-pagination="isPagination"
+          ></xd-file-list-preview>
         <hr>
         <h1>文件预览模式</h1>
         <a @click="handleClick" style="color: #4285f4">9958ff80d202f91b347b14b5c56f14e811</a>
@@ -91,6 +95,7 @@ Vue.use(vueFilePreview,{
     data() {
       return {
         showClose: true, //是否开启删除功能
+        isPagination: true, //列表启动翻页功能
         /**@type FileItemFormat **/
         list: [
           {url: 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf'},
@@ -189,6 +194,10 @@ location /img/ {
 
 ```text
 版本日志
+1.2.0 
+1、新增JSON，TXT，JS，HTML，CSS预览功能
+2、列表展示功能新增 预览模式时候 左右翻页功能
+
 1.1.18 
 优化文档显示
 

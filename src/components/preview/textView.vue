@@ -11,20 +11,7 @@
       <div class="pdf-preview__title-close" @click="closeHandle(options.ele)"><i class="fileIconfont iconwrong"></i></div>
     </div>
     <div class="pdf-preview__content" :style="`width: ${getWdith}`">
-      <xd-pdf
-        :file-url="info['response']"
-        @num-pages="setTotalNumPages"
-        :current-pages="page"
-      ></xd-pdf>
-    </div>
-    <div class="img-preview__toolbar">
-      <span>
-        <i class="fileIconfont iconfangda" @click="zoomHandle(1)"></i>
-        <i class="fileIconfont iconsuoxiao" @click="zoomHandle(-1)"></i>
-        <i class="fileIconfont iconpageup" @click="overPage(-1)"></i>
-        <i class="fileIconfont iconpagedown" @click="overPage(1)"></i>
-        <i class="fileIconfont iconhuanyuan" @click="zoomOriginalSize()"></i>
-      </span>
+      <pre v-highlightjs="info.url"><code :class="getCss(info.type)"></code></pre>
     </div>
     <div class="img-preview__bottom"></div>
     <div class="change change-prev" v-if="isBtn" @click="handeCilck('prev')"><i class="fileIconfont iconpageup"></i></div>
@@ -34,10 +21,11 @@
 <script>
   import helper from "./helper";
   import download from 'downloadjs';
-  import XdPdf from "../XdPdf";
-
+  
   export default {
     name: "xdPdfPreview",
+    components:{
+    },
     props: {
       options: {
         type: Object|null,
@@ -46,7 +34,6 @@
         }
       },
     },
-    components: {XdPdf},
     data() {
       return {
         src: '',
@@ -56,7 +43,7 @@
         rotate: 0,
         width: 0.5,
         info: null,
-        isDownLoad: true
+        isDownLoad: true,
       }
     },
     filters:{
@@ -84,18 +71,23 @@
       getWdith() {
         return (this.width * 100) + '%';
       },
-      isBtn() {
+  
+      isBtn(){
         let isBtn = false;
-        if (this.info && this.info.callback && typeof this.info.callback === 'function') isBtn = true;
+        if(this.info && this.info.callback && typeof this.info.callback === 'function') isBtn = true;
         return isBtn
       }
     },
     methods: {
-      handeCilck(status) {
-        if (this.info && this.info.callback && typeof this.info.callback === 'function') {
+      handeCilck(status){
+        if (this.info && this.info.callback && typeof this.info.callback === 'function'){
           this.closeHandle(this.info.ele);
           this.info.callback(status)
         }
+      },
+      
+      getCss(type){
+        return type.toLocaleLowerCase()
       },
       /**
        * @description 设置总页数
@@ -158,6 +150,7 @@
       password: function (updatePassword, reason) {
         updatePassword(prompt('password is "test"'));
       },
+      
       error: function (err) {
         console.log(err);
       }
@@ -220,7 +213,29 @@
     position: relative;
     z-index: 9;
     margin: 0 auto;
+    background: #fff;
+    padding: 10px;
+    box-sizing: border-box;
   }
+
+  .pdf-preview__content pre {
+    font-size: 14px;
+    margin: 0;
+    height: 100%;
+  }
+
+  .pdf-preview__content code {
+    min-height: 100% !important;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+    border-radius: 6px;
+    font-size: 14px!important;
+    padding: 20px;
+  }
+  
+
   .img-preview__toolbar {
     position: absolute;
     font-size: 0;
@@ -299,6 +314,83 @@
     background: #333;
     z-index: 10;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    color: #abb2bf;
+    background: #282c34;
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    color: #5c6370;
+    font-style: italic;
+  }
+
+  .hljs-doctag,
+  .hljs-keyword,
+  .hljs-formula {
+    color: #c678dd;
+  }
+
+  .hljs-section,
+  .hljs-name,
+  .hljs-selector-tag,
+  .hljs-deletion,
+  .hljs-subst {
+    color: #e06c75;
+  }
+
+  .hljs-literal {
+    color: #56b6c2;
+  }
+
+  .hljs-string,
+  .hljs-regexp,
+  .hljs-addition,
+  .hljs-attribute,
+  .hljs-meta-string {
+    color: #98c379;
+  }
+
+  .hljs-built_in,
+  .hljs-class .hljs-title {
+    color: #e6c07b;
+  }
+
+  .hljs-attr,
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-type,
+  .hljs-selector-class,
+  .hljs-selector-attr,
+  .hljs-selector-pseudo,
+  .hljs-number {
+    color: #d19a66;
+  }
+
+  .hljs-symbol,
+  .hljs-bullet,
+  .hljs-link,
+  .hljs-meta,
+  .hljs-selector-id,
+  .hljs-title {
+    color: #61aeee;
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    font-weight: bold;
+  }
+
+  .hljs-link {
+    text-decoration: underline;
   }
 
 

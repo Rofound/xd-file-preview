@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <h1>列表展示</h1>
-    <xd-file-list-preview :show-close="true" :list="list" @remove="handleRemoveClick"></xd-file-list-preview>
+    <xd-file-list-preview
+      :show-close="true"
+      :list="list"
+      @remove="handleRemoveClick"
+      is-pagination
+    ></xd-file-list-preview>
     <hr>
     <h1>文件预览模式</h1>
     <a @click="handleClick" style="color: #4285f4">9958ff80d202f91b347b14b5c56f14e811</a>
@@ -55,9 +60,33 @@
             download: false
           },
           {
-            url: 'http://static.e56buy.com/XdgfsqR2INp7uFxTuLQtnMstYLY4K8rr.蛋糕缺少内容.docx',
-            name: 'PlayerAPI_v1.0.6.pdf',
-            fid: 'PlayerAPI_v1.0.6.pdf',
+            url: 'https://sandbox-editx-website.oss-cn-qingdao.aliyuncs.com/sandbox-website-01.jufubao.cn/store/20221009153933/config/pages/pg_cn4THNcGvif-SDvN9A.json',
+            name: 'PlayerAPI_v1.0.6.json',
+            fid: 'PlayerAPI_v1.0.6.json',
+            download: true
+          },
+          {
+            url: 'http://localhost:8057/static/helper.js',
+            name: 'PlayerAPI_v1.0.6.js',
+            fid: 'PlayerAPI_v1.0.6.js',
+            download: false
+          },
+          {
+            url: 'http://localhost:8057/static/index.html',
+            name: 'PlayerAPI_v1.0.6.html',
+            fid: 'PlayerAPI_v1.0.6.html',
+            download: false
+          },
+          {
+            url: 'http://localhost:8057/static/index.txt',
+            name: 'PlayerAPI_v1.0.6.txt',
+            fid: 'PlayerAPI_v1.0.6.txt',
+            download: false
+          },
+          {
+            url: 'http://localhost:8057/static/helper.css',
+            name: 'PlayerAPI_v1.0.6.css',
+            fid: 'PlayerAPI_v1.0.6.css',
             download: false
           },
         ]

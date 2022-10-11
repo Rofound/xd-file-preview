@@ -44,6 +44,12 @@
       </span>
     </div>
     <div class="img-preview-bottom"></div>
+    <div class="change change-prev" v-if="isBtn" @click="handeCilck('prev')">
+      <i class="fileIconfont iconpageup"></i>
+    </div>
+    <div class="change change-next" v-if="isBtn" @click="handeCilck('next')">
+      <i class="fileIconfont iconpagedown"></i>
+    </div>
   </div>
 </template>
 <script>
@@ -77,6 +83,13 @@
           return `${name}.${type}`
         }
         return name;
+      }
+    },
+    computed:{
+      isBtn() {
+        let isBtn = false;
+        if (this.info && this.info.callback && typeof this.info.callback === 'function') isBtn = true;
+        return isBtn
       }
     },
     data() {
@@ -144,7 +157,12 @@
       //window.bodyEle.addEventListener('select', window.boxyEleStop, false);
     },
     methods: {
-
+      handeCilck(status) {
+        if (this.info && this.info.callback && typeof this.info.callback === 'function') {
+          this.closeHandle(this.info.ele);
+          this.info.callback(status)
+        }
+      },
       download() {
         console.log(this.info)
         download(this.info['response'], this.info['name'])

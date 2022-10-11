@@ -11,33 +11,29 @@
       <div class="pdf-preview__title-close" @click="closeHandle(options.ele)"><i class="fileIconfont iconwrong"></i></div>
     </div>
     <div class="pdf-preview__content" :style="`width: ${getWdith}`">
-      <xd-pdf
-        :file-url="info['response']"
-        @num-pages="setTotalNumPages"
-        :current-pages="page"
-      ></xd-pdf>
-    </div>
-    <div class="img-preview__toolbar">
-      <span>
-        <i class="fileIconfont iconfangda" @click="zoomHandle(1)"></i>
-        <i class="fileIconfont iconsuoxiao" @click="zoomHandle(-1)"></i>
-        <i class="fileIconfont iconpageup" @click="overPage(-1)"></i>
-        <i class="fileIconfont iconpagedown" @click="overPage(1)"></i>
-        <i class="fileIconfont iconhuanyuan" @click="zoomOriginalSize()"></i>
-      </span>
+      <json-viewer
+        :value="info.url"
+        :expand-depth='2'
+      >
+      </json-viewer>
     </div>
     <div class="img-preview__bottom"></div>
-    <div class="change change-prev" v-if="isBtn" @click="handeCilck('prev')"><i class="fileIconfont iconpageup"></i></div>
-    <div class="change change-next" v-if="isBtn" @click="handeCilck('next')"><i class="fileIconfont iconpagedown"></i></div>
+    <div class="change change-prev" v-if="isBtn" @click="handeCilck('prev')">
+      <i class="fileIconfont iconpageup"></i>
+    </div>
+    <div class="change change-next" v-if="isBtn" @click="handeCilck('next')">
+      <i class="fileIconfont iconpagedown"></i>
+    </div>
   </div>
 </template>
 <script>
   import helper from "./helper";
   import download from 'downloadjs';
-  import XdPdf from "../XdPdf";
+  import JsonViewer from 'vue-json-viewer'
 
   export default {
     name: "xdPdfPreview",
+    
     props: {
       options: {
         type: Object|null,
@@ -46,7 +42,9 @@
         }
       },
     },
-    components: {XdPdf},
+    components: {
+      JsonViewer
+    },
     data() {
       return {
         src: '',
@@ -56,7 +54,8 @@
         rotate: 0,
         width: 0.5,
         info: null,
-        isDownLoad: true
+        isDownLoad: true,
+        
       }
     },
     filters:{
@@ -221,6 +220,11 @@
     z-index: 9;
     margin: 0 auto;
   }
+
+  .pdf-preview__content .jv-container {
+    min-height: 100% !important;
+  }
+
   .img-preview__toolbar {
     position: absolute;
     font-size: 0;

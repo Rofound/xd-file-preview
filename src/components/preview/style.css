@@ -61,3 +61,28 @@
 .iconzuozhuan:before {
     content: "\e667";
 }
+
+.change {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    z-index: 100000;
+}
+
+.change > i.fileIconfont {
+    color: #fff;
+    font-size: 40px!important;
+    opacity: .8;
+    cursor: pointer;
+}
+
+.change.change-prev {
+    left: 20px;
+}
+
+.change.change-next {
+    right: 20px;
+}
+

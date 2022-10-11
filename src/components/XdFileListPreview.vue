@@ -1,13 +1,13 @@
 <template>
   <div class="xd-file-list__body">
-    <div class="xd-file-list__item" v-if="item" v-for="(item,index) in dataList" :key="index">
+    <div class="xd-file-list__item" v-if="item" v-for="(item,index) in dataList" :key="item.fid">
       <div class="xd-file-list__item-icon">
         <img v-if="item['icon']" :src="item['icon']" alt="icon">
         <div v-else><i class="fileIconfont iconwenjian"></i></div>
       </div>
       <div class="xd-file-list__item-text">
         <div class="xd-file-list__item-text-title" :title="getName(item)">{{getFileName(item)}}</div>
-        <div class="xd-file-list__item-text-link" @click="handleClick(item)" :style="`color: ${linkColor}`">点击查看</div>
+        <div class="xd-file-list__item-text-link" @click="handleClick(item,index)" :style="`color: ${linkColor}`">点击查看</div>
       </div>
       <i class="fileIconfont iconyduicuowushixin" v-if="showClose" @click.stop="handleRemoveClick(item,index)"></i>
     </div>
@@ -34,6 +34,11 @@
       linkColor: {
         type: String,
         default: '#4285F4',
+      },
+      
+      isPagination: {
+        type: Boolean,
+        default: false,
       }
     },
 
@@ -110,10 +115,32 @@
         let arr = item.url.split('/');
         return helper.cutStringLen(arr[arr.length - 1], 23);
       },
+  
+      /**
+       * @description 启动自动翻页功能
+       * @param index
+       */
+      callback(index){
+        return (status)=>{
+          let idx = 0;
+          if (status === 'prev') {
+            idx = (index - 1) < 0 ? (this.dataList.length -1) : (index - 1);
+            this.handleClick(this.dataList[idx], idx)
+          }
+          if (status === 'next') {
+            idx = (index + 1) === this.dataList.length ? 0 :(index + 1);
+            this.handleClick(this.dataList[idx], idx)
+          }
+        }
+        
+      },
 
-      handleClick(item) {
-        console.log('handleClick', item);
-        this.$preview(item)
+      handleClick(item,index) {
+        let calback = null;
+        if(this.isPagination) {
+          calback = this.callback(index);
+        }
+        this.$preview(item, calback)
       },
 
       handleRemoveClick(item, index) {

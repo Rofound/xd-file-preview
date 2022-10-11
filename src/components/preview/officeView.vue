@@ -13,6 +13,12 @@
         <iframe v-if="src" :src="src" height="100%" width="100%" frameborder="0"></iframe>
       </div>
     </div>
+    <div class="change office change-prev" v-if="isBtn" @click="handeCilck('prev')">
+      <i class="fileIconfont iconpageup"></i>
+    </div>
+    <div class="change office change-next" v-if="isBtn" @click="handeCilck('next')">
+      <i class="fileIconfont iconpagedown"></i>
+    </div>
   </div>
 </template>
 <script>
@@ -55,6 +61,13 @@
         }
       }
     },
+    computed:{
+      isBtn() {
+        let isBtn = false;
+        if (this.info && this.info.callback && typeof this.info.callback === 'function') isBtn = true;
+        return isBtn
+      }
+    },
     data() {
       return {
         otherPreviewUrl: 'https://view.officeapps.live.com/op/view.aspx?src=',
@@ -64,6 +77,12 @@
       }
     },
     methods: {
+      handeCilck(status) {
+        if (this.info && this.info.callback && typeof this.info.callback === 'function') {
+          this.handleCloseClick(this.info.ele);
+          this.info.callback(status)
+        }
+      },
       download() {
         console.log(this.info)
         download(this.info['response'], this.info['name'])
@@ -79,6 +98,12 @@
   };
 </script>
 <style>
+  @import "style.css";
+
+  .change.office > i.fileIconfont {
+    color: #999;
+    opacity: 0.7;
+  }
   .office-preview {
     position: fixed;
     top: 0;

@@ -1,7 +1,7 @@
 'use strict';
 
 const MD5 = require('md5.js');
-import {iconData, textType, typeHeader} from "./../contact";
+import {iconData, typeHeader } from "./../contact";
 
 class Helper {
   hideScroll(type){
@@ -124,14 +124,6 @@ class Helper {
     return type;
   }
 
-
-  checkType(arr, item) {
-    let temp = arr.filter(it => {
-      return it === item;
-    });
-    return temp.length > 0;
-  }
-
   /**
    * @description 获取文件base64流
    * @param blob
@@ -142,21 +134,13 @@ class Helper {
     return new Promise((resolve, reject)=>{
       let reader = new FileReader();
       reader.onload = (e)=> {
-        if(file.type === 'JSON') {
-          resolve(JSON.parse(e.target['result']));
-        }
-        else {
-          resolve(e.target['result']);
-        }
+        resolve(e.target['result']);
       };
       reader.onerror = ()=>{
         reject('读取文件错误')
       };
 
-      if (file.type === 'JSON'
-        || this.checkType(textType, file.type)
-      ) reader.readAsText(blob, 'utf-8');
-      else reader.readAsDataURL(blob);
+      reader.readAsDataURL(blob);
     });
   }
 
@@ -223,10 +207,6 @@ class Helper {
    */
   getIcon(type='') {
     let temp = '';
-    if(this.checkType(textType, type)) {
-      type = 'text';
-    }
-
     if(iconData[type.toLocaleLowerCase()]) {
       temp = iconData[type.toLocaleLowerCase()];
     }
@@ -317,9 +297,6 @@ class Helper {
     if (ele) {
       ele.style.display = "block";
       this.hideScroll(1);
-      if(typeof options['callback'] === 'function') {
-        options['callback']('show')
-      }
       return ele;
     }
 
@@ -333,16 +310,10 @@ class Helper {
       let ele = document.getElementById(id);
       ele.style.display = "none";
       this.hideScroll(-1);
-      if (typeof options['callback'] === 'function') {
-        options['callback']('close')
-      }
     };
 
     document.body.appendChild($view.$el);
     this.hideScroll(1);
-    if (typeof options['callback'] === 'function') {
-      options['callback']('show')
-    }
   }
 
 }
